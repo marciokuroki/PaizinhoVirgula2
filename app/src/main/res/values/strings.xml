@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">PaizinhoVirgula2</string>
+    <string name="app_name">Paizinho, Vírgula!</string>
+
+    <!-- MENU NAVIGATION BOTTOM -->
+    <string name="menu_blog">Blog</string>
+    <string name="menu_podcast">Podcast</string>
+    <string name="menu_video">YouTube</string>
+    <string name="menu_evento">Eventos</string>
+    <!-- END - MENU NAVIGATION BOTTOM -->
+
+    <string name="podcast_fragment">Podcast Tricô de Pais</string>
+
+
 </resources>
