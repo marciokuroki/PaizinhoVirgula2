@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/fragment_blog"
+        android:enabled="false"
+        android:icon="@drawable/ic_newspaper"
+        android:title="@string/menu_blog"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/fragment_podcast"
+        android:enabled="true"
+        android:icon="@drawable/ic_headphones"
+        android:title="@string/menu_podcast"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/fragment_video"
+        android:enabled="false"
+        android:icon="@drawable/ic_video"
+        android:title="@string/menu_video"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/fragment_evento"
+        android:enabled="false"
+        android:icon="@drawable/ic_map"
+        android:title="@string/menu_evento"
+        app:showAsAction="ifRoom" />
+
+</menu>
