@@ -9,6 +9,9 @@
     <!-- END - MENU NAVIGATION BOTTOM -->
 
     <string name="podcast_fragment">Podcast Tricô de Pais</string>
-
+    <string name="blog_fragment">Blog do Paizinho, Vírgula!</string>
+    <string name="video_fragment">Paizinho no YouTube</string>
+    <string name="evento_fragment">Eventos do Paizinho</string>
+    <string name="no_data_available">Nenhum registro encontrado.</string>
 
 </resources>
