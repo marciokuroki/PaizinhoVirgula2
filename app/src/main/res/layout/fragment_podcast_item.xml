@@ -2,13 +2,14 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
     <ImageView
-        android:id="@+id/fbi_image"
+        android:id="@+id/fpi_image"
         android:layout_width="363dp"
         android:layout_height="275dp"
         android:layout_marginBottom="8dp"
@@ -27,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.5" />
 
     <TextView
-        android:id="@+id/fbi_title"
+        android:id="@+id/fpi_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -47,7 +48,7 @@
         android:textColor="@android:color/white"/>
 
     <TextView
-        android:id="@+id/fbi_pubdate"
+        android:id="@+id/fpi_pubdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -65,5 +66,27 @@
         app:layout_constraintHorizontal_bias="0.0"
         android:background="@color/fundoTexto"
         android:textColor="@android:color/white"/>
+
+    <ImageButton
+        android:id="@+id/fpi_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:elevation="8dp"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/fbi_title"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/fbi_image"
+        app:layout_constraintRight_toRightOf="@+id/fbi_image"
+        app:layout_constraintTop_toTopOf="@+id/fbi_image"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_play"
+        android:onClick="onClickPlay" />
 
 </android.support.constraint.ConstraintLayout>
