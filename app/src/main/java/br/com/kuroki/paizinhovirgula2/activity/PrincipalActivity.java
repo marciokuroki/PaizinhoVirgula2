@@ -41,6 +41,8 @@ public class PrincipalActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                transaction = fragmentManager.beginTransaction();
+
                 Log.i(PRINCIPAL_TAG, "Cliquei no item: " + item.getTitle());
                 switch (item.getItemId()) {
                     case R.id.fragment_blog:
@@ -57,6 +59,7 @@ public class PrincipalActivity extends AppCompatActivity {
                         break;
                 }
                 transaction.replace(R.id.main_container, currentFragment);
+                transaction.commit();
                 return true;
             }
         });
@@ -70,8 +73,8 @@ public class PrincipalActivity extends AppCompatActivity {
 
         if (currentFragment == null) {
             currentFragment = new PodcastFragment();
+            transaction.add(R.id.main_container, currentFragment).commit();
         }
-        transaction.replace(R.id.main_container, currentFragment).commit();
     }
 
     @Override
