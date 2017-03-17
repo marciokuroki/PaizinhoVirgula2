@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/blog_item_id">
 
 
     <ImageView
@@ -44,7 +45,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9"
         android:background="@color/fundoTexto"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:transitionName="@string/transition_string"/>
 
     <TextView
         android:id="@+id/fbi_pubdate"

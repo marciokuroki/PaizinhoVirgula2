@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -25,7 +24,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_trico"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        android:transitionName="@string/transition_image"/>
 
     <TextView
         android:id="@+id/fpi_title"
@@ -75,18 +75,19 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:cropToPadding="true"
-        android:elevation="8dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:elevation="4dp"
+        android:onClick="onClickPlay"
         android:scaleType="centerCrop"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/fbi_title"
+        app:layout_constraintBottom_toTopOf="@+id/fpi_title"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="@+id/fbi_image"
-        app:layout_constraintRight_toRightOf="@+id/fbi_image"
-        app:layout_constraintTop_toTopOf="@+id/fbi_image"
+        app:layout_constraintLeft_toLeftOf="@+id/fpi_image"
+        app:layout_constraintRight_toRightOf="@+id/fpi_image"
+        app:layout_constraintTop_toTopOf="@+id/fpi_image"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_play"
-        android:onClick="onClickPlay" />
+        app:srcCompat="@drawable/player_selector"
+        android:src="@drawable/player_selector"/>
 
 </android.support.constraint.ConstraintLayout>
