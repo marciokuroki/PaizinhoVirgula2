@@ -3,15 +3,24 @@
 
     <!-- MENU NAVIGATION BOTTOM -->
     <string name="menu_blog">Blog</string>
-    <string name="menu_podcast">Podcast</string>
+    <string name="menu_podcast">Tricô de Pais</string>
     <string name="menu_video">YouTube</string>
     <string name="menu_evento">Eventos</string>
+    <string name="menu_sinuca">Sinuca de Bicos</string>
     <!-- END - MENU NAVIGATION BOTTOM -->
 
-    <string name="podcast_fragment">Podcast Tricô de Pais</string>
+    <string name="podcast_fragment">Tricô de Pais</string>
     <string name="blog_fragment">Blog do Paizinho, Vírgula!</string>
     <string name="video_fragment">Paizinho no YouTube</string>
     <string name="evento_fragment">Eventos do Paizinho</string>
+    <string name="sinuca_fragment">Sinuca de Bicos</string>
+
     <string name="no_data_available">Nenhum registro encontrado.</string>
+
+    <string name="transition_string">hello</string>
+    <string name="transition_image">image</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -10,9 +10,15 @@
     <item
         android:id="@+id/fragment_podcast"
         android:enabled="true"
-        android:icon="@drawable/ic_headphones"
+        android:icon="@drawable/ic_trico"
         android:title="@string/menu_podcast"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/fragment_sinuca"
+        android:enabled="true"
+        android:icon="@drawable/ic_sinuca"
+        android:title="@string/menu_sinuca"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/fragment_video"
         android:enabled="false"
