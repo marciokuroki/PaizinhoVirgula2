@@ -1,5 +1,7 @@
 package br.com.kuroki.paizinhovirgula2.fragment.interfaces;
 
+import android.view.View;
+
 import br.com.kuroki.paizinhovirgula2.entity.Item;
 
 /**
@@ -7,5 +9,5 @@ import br.com.kuroki.paizinhovirgula2.entity.Item;
  */
 
 public interface OnItemClickListener {
-    void onItemClick(Item item);
+    void onItemClick(View view, Item item);
 }

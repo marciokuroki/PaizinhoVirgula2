@@ -12,21 +12,25 @@ import java.util.Comparator;
 @DatabaseTable(tableName = "tb_item")
 public class Item implements Comparator<Item>{
 
-    public static final String NMCP_ID = "id_item";
-    public static final String NMCP_TITLE = "title";
-    public static final String NMCP_PUBDATE = "pub_date";
-    public static final String NMCP_DESCRIPTION = "description";
-    public static final String NMCP_CONTENT = "content";
-    public static final String NMCP_URL = "url";
-    public static final String NMCP_IMAGE = "image";
-    public static final String NMCP_LOCAL_DOWNLOAD = "local_download";
-    public static final String NMCP_RESUME_POSITION = "resume_position";
-    public static final String NMCP_IS_DOWNLOADED = "is_downloaded";
-    public static final String NMCP_IS_VIEWED = "is_viewed";
-    public static final String NMCP_DURATION = "duration";
-    public static final String NMCP_EPISODIO = "episode_number";
-    public static final String NMCP_PODCAST_NOME = "podcast_name";
-    public static final String NMCP_SIZE_MEDIA = "size_media";
+    public static final int PODCAST_TIPO_TRICO_DE_PAIS = 1;
+    public static final int PODCAST_TIPO_SINUCA_DE_BICOS = 2;
+
+    private static final String NMCP_ID = "id_item";
+    private static final String NMCP_TITLE = "title";
+    private static final String NMCP_PUBDATE = "pub_date";
+    private static final String NMCP_DESCRIPTION = "description";
+    private static final String NMCP_CONTENT = "content";
+    private static final String NMCP_URL = "url";
+    private static final String NMCP_IMAGE = "image";
+    private static final String NMCP_LOCAL_DOWNLOAD = "local_download";
+    private static final String NMCP_RESUME_POSITION = "resume_position";
+    private static final String NMCP_IS_DOWNLOADED = "is_downloaded";
+    private static final String NMCP_IS_VIEWED = "is_viewed";
+    private static final String NMCP_DURATION = "duration";
+    private static final String NMCP_EPISODIO = "episode_number";
+    private static final String NMCP_PODCAST_NOME = "podcast_name";
+    private static final String NMCP_SIZE_MEDIA = "size_media";
+    public static final String NMCP_TIPO = "tipo_podcast";
     //public static final String NMCP_CATEGORIES = "categories";
 
     @DatabaseField(columnName = NMCP_ID, generatedId = true)
@@ -59,6 +63,8 @@ public class Item implements Comparator<Item>{
     private String nomePodcast;
     @DatabaseField(columnName = NMCP_SIZE_MEDIA)
     private Long sizeMedia;
+    @DatabaseField(columnName = NMCP_TIPO)
+    private Integer tipo;
     /*@ForeignCollectionField(columnName = NMCP_CATEGORIES)
     private ForeignCollection<Categoria> categories;*/
 
@@ -219,5 +225,13 @@ public class Item implements Comparator<Item>{
 
     public void setSizeMedia(Long sizeMedia) {
         this.sizeMedia = sizeMedia;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 }

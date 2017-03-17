@@ -15,6 +15,7 @@ import br.com.kuroki.paizinhovirgula2.R;
 import br.com.kuroki.paizinhovirgula2.fragment.BlogFragment;
 import br.com.kuroki.paizinhovirgula2.fragment.EventoFragment;
 import br.com.kuroki.paizinhovirgula2.fragment.PodcastFragment;
+import br.com.kuroki.paizinhovirgula2.fragment.SinucaFragment;
 import br.com.kuroki.paizinhovirgula2.fragment.VideoFragment;
 
 public class PrincipalActivity extends AppCompatActivity {
@@ -34,7 +35,6 @@ public class PrincipalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         fragmentManager = this.getSupportFragmentManager();
-        transaction = fragmentManager.beginTransaction();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -57,6 +57,9 @@ public class PrincipalActivity extends AppCompatActivity {
                     case R.id.fragment_evento:
                         currentFragment = new EventoFragment();
                         break;
+                    case R.id.fragment_sinuca:
+                        currentFragment = new SinucaFragment();
+                        break;
                 }
                 transaction.replace(R.id.main_container, currentFragment);
                 transaction.commit();
@@ -65,20 +68,20 @@ public class PrincipalActivity extends AppCompatActivity {
         });
 
         //TODO: 11/03/17 retirar quando implementar os outros item desse menu
-        bottomNavigationView.getMenu().getItem(1).setChecked(true);
+        //bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
         bottomNavigationView.getMenu().getItem(0).setEnabled(true);
+        bottomNavigationView.getMenu().getItem(1).setEnabled(true);
         bottomNavigationView.getMenu().getItem(2).setEnabled(true);
         bottomNavigationView.getMenu().getItem(3).setEnabled(true);
+        bottomNavigationView.getMenu().getItem(4).setEnabled(true);
 
         if (currentFragment == null) {
-            currentFragment = new PodcastFragment();
+            //currentFragment = new PodcastFragment();
+            currentFragment = new BlogFragment();
+            transaction = fragmentManager.beginTransaction();
             transaction.add(R.id.main_container, currentFragment).commit();
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
 }

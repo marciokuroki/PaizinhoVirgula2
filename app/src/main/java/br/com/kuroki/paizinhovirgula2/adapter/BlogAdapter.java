@@ -25,13 +25,13 @@ import br.com.kuroki.paizinhovirgula2.util.DateUtil;
 public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder> {
 
     private List<Item> items = Collections.emptyList();
-    private Context context;
-    private LayoutInflater inflater;
+    // --Commented out by Inspection (16/03/17 16:27):private final Context context;
+    private final LayoutInflater inflater;
     private OnItemClickListener listener;
 
     public BlogAdapter(List<Item> list, Context context) {
         this.items = list;
-        this.context = context;
+        //this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -59,8 +59,9 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
     }
 
     public class BlogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView title, pubdate;
-        ImageView imagem;
+        final TextView title;
+        final TextView pubdate;
+        final ImageView imagem;
 
         public BlogViewHolder(View itemView) {
             super(itemView);
@@ -86,7 +87,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         @Override
         public void onClick(View v) {
             if (listener != null) {
-                listener.onItemClick(items.get(getPosition()));
+                listener.onItemClick(v, items.get(getPosition()));
             }
         }
     }

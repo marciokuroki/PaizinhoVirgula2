@@ -3,7 +3,10 @@ package br.com.kuroki.paizinhovirgula2.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import br.com.kuroki.paizinhovirgula2.R;
 import br.com.kuroki.paizinhovirgula2.activity.BlogExibirItemActivity;
@@ -31,34 +34,61 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
 
     private PaizinhoDataBaseHelper baseHelper;
 
+    private BlogRSSReader blogRSSReader;
+
     public BlogFragment() { }
 
     @Override
-    public void onItemClick(Item item) {
+    public void onItemClick(View view, Item item) {
         Intent intent = new Intent(getActivity(), BlogExibirItemActivity.class);
+        String transitionImage = getString(R.string.transition_image);
+        String transitionName = getString(R.string.transition_string);
+
+        View viewStart = getActivity().findViewById(R.id.blog_item_id);
+
+        Pair<View, String> pair1 = new Pair<>(viewStart, transitionName);
+        Pair<View, String> pair2 = new Pair<>(viewStart, transitionImage);
+
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pair1, pair2);
+
         intent.putExtra("itemID", item.getId());
-        getActivity().startActivity(intent);
+        ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
     }
 
-    private PaizinhoDataBaseHelper getHelper(){
-        if (baseHelper == null)
-            baseHelper = new PaizinhoDataBaseHelper(getContext());
-        return baseHelper;
+// --Commented out by Inspection START (16/03/17 16:27):
+//    private PaizinhoDataBaseHelper getHelper(){
+//        if (baseHelper == null)
+//            baseHelper = new PaizinhoDataBaseHelper(getContext());
+//        return baseHelper;
+//    }
+// --Commented out by Inspection STOP (16/03/17 16:27)
+
+    private BlogRSSReader getBlogRssReader() {
+        if (blogRSSReader == null)
+            blogRSSReader = new BlogRSSReader(getActivity());
+        return blogRSSReader;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try {
+        /*try {
             listBlog = getHelper().getItemDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
+        }*/
+
+        //BlogRSSReader blogRSSReader = new BlogRSSReader(getActivity());
+
+        //TODO Criar um Enum ou arquivo de configuração para armazenar os feeds
+        //blogRSSReader.execute("http://paizinhovirgula.com/category/blog/feed");
+        getBlogRssReader().execute("http://paizinhovirgula.com/category/blog/feed");
+
+        try {
+            listBlog = blogRSSReader.get();
+        }catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
-
-        BlogRSSReader blogRSSReader = new BlogRSSReader(getActivity());
-
-        //TODO pegar a URL do feed do BLOG;
-        blogRSSReader.execute("http://paizinhovirgula.com/feed");
 
         View view = inflater.inflate(R.layout.fragment_blog, container, false);
 
@@ -78,7 +108,7 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
 
         //TODO Fazer checagem da consulta da listagem
         //Se a listagem vazia, preenche com o texto
-        if (listBlog.size() <= 0) {
+        if (listBlog == null || listBlog.size() <= 0) {
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         }else {

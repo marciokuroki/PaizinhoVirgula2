@@ -1,6 +1,5 @@
 package br.com.kuroki.paizinhovirgula2.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,7 +21,7 @@ import br.com.kuroki.paizinhovirgula2.fragment.interfaces.OnItemClickListener;
 import br.com.kuroki.paizinhovirgula2.persistence.PaizinhoDataBaseHelper;
 import br.com.kuroki.paizinhovirgula2.task.PodcastRSSReader;
 
-public class PodcastFragment extends Fragment implements OnItemClickListener{
+public class SinucaFragment extends Fragment implements OnItemClickListener {
 
     private RecyclerView recyclerView;
     private TextView emptyView;
@@ -32,10 +31,10 @@ public class PodcastFragment extends Fragment implements OnItemClickListener{
 
     private PaizinhoDataBaseHelper dataBaseHelper;
 
-    PodcastRSSReader podcastRSSReader;
+    private PodcastRSSReader podcastRSSReader;
 
-    public PodcastFragment() { }
-
+    public SinucaFragment() {
+    }
 
     private PaizinhoDataBaseHelper getHelper() {
         if (dataBaseHelper == null) {
@@ -45,16 +44,9 @@ public class PodcastFragment extends Fragment implements OnItemClickListener{
         return dataBaseHelper;
     }
 
-    @Override
-    public void onItemClick(View v, Item item) {
-        Intent intent = new Intent(getActivity(), PodcastExibirItemActivity.class);
-        intent.putExtra("itemID", item.getId());
-        getActivity().startActivity(intent);
-    }
-
     private PodcastRSSReader getPodcastRSSReader() {
         if (podcastRSSReader == null)
-            podcastRSSReader = new PodcastRSSReader(getActivity(), Item.PODCAST_TIPO_TRICO_DE_PAIS);
+            podcastRSSReader = new PodcastRSSReader(getActivity(), Item.PODCAST_TIPO_SINUCA_DE_BICOS);
         return podcastRSSReader;
     }
 
@@ -67,15 +59,16 @@ public class PodcastFragment extends Fragment implements OnItemClickListener{
         emptyView = (TextView) view.findViewById(R.id.empty_view_podcast);
 
         try {
-            //listPodcast = getHelper().getItemDao().queryForAll();
-            listPodcast = getHelper().getItemDao().queryForEq(Item.NMCP_TIPO, Item.PODCAST_TIPO_TRICO_DE_PAIS);
+            listPodcast = getHelper().getItemDao().queryForEq(Item.NMCP_TIPO, Item.PODCAST_TIPO_SINUCA_DE_BICOS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        //PodcastRSSReader podcastRSSReader = new PodcastRSSReader(getActivity(), Item.PODCAST_TIPO_TRICO_DE_PAIS);
-        //podcastRSSReader.execute("http://paizinhovirgula.com/feed/podcast");
-        getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcast");
+        //PodcastRSSReader podcastRSSReader = new PodcastRSSReader(getActivity(), Item.PODCAST_TIPO_SINUCA_DE_BICOS);
+
+        //TODO pegar a URL do feed do BLOG;
+        //podcastRSSReader.execute("http://paizinhovirgula.com/feed/podcastsinucadebicos");
+        getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcastsinucadebicos");
 
         recyclerView.setHasFixedSize(true);
 
@@ -102,4 +95,10 @@ public class PodcastFragment extends Fragment implements OnItemClickListener{
         return view;
     }
 
+    @Override
+    public void onItemClick(View view, Item item) {
+        Intent intent = new Intent(getActivity(), PodcastExibirItemActivity.class);
+        intent.putExtra("itemID", item.getId());
+        getActivity().startActivity(intent);
+    }
 }

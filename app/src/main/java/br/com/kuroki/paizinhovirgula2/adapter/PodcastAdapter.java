@@ -1,9 +1,7 @@
 package br.com.kuroki.paizinhovirgula2.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +26,8 @@ import br.com.kuroki.paizinhovirgula2.util.DateUtil;
 public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastViewHolder> {
 
     private List<Item> items = Collections.emptyList();
-    private Context context;
-    private LayoutInflater inflater;
+    private final Context context;
+    private final LayoutInflater inflater;
     private OnItemClickListener listener;
 
     public PodcastAdapter(List<Item> list, Context context) {
@@ -62,9 +60,10 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     }
 
     public class PodcastViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView title, pubdate;
-        ImageView imagem;
-        ImageButton imageButton;
+        final TextView title;
+        final TextView pubdate;
+        final ImageView imagem;
+        final ImageButton imageButton;
 
         public PodcastViewHolder(View itemView) {
             super(itemView);
@@ -76,11 +75,10 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i("### TESTE", ""+imageButton.isActivated());
                     if (imageButton.isActivated()) {
-                        imageButton.setImageResource(R.drawable.ic_pause);
-                    }else {
-                        imageButton.setImageResource(R.drawable.ic_play);
+                        imageButton.setActivated(false);
+                    } else {
+                        imageButton.setActivated(true);
                     }
                 }
             });
@@ -88,7 +86,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             itemView.setOnClickListener(this);
         }
 
-        //TODO item
         public void bind (final Item item) {
             title.setText(item.getTitle());
             pubdate.setText(DateUtil.converteLongToDate(item.getPubDate(), "dd 'de' MMMM 'de' yyyy"));
@@ -102,7 +99,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         @Override
         public void onClick(View v) {
             if (listener != null) {
-                listener.onItemClick(items.get(getPosition()));
+                listener.onItemClick(v, items.get(getPosition()));
             }
         }
     }

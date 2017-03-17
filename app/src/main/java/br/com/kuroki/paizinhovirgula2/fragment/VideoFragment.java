@@ -21,6 +21,7 @@ public class VideoFragment extends Fragment {
         // Required empty public constructor
     }
 
+    //TODO URL = https://www.youtube.com/channel/UC_nsjAbH0GlhCSDafFxIgVw
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

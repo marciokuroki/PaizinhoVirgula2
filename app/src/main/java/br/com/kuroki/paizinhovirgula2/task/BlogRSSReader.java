@@ -1,9 +1,7 @@
 package br.com.kuroki.paizinhovirgula2.task;
 
-import android.app.Service;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import org.w3c.dom.Document;
@@ -18,7 +16,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +25,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import br.com.kuroki.paizinhovirgula2.adapter.BlogAdapter;
 import br.com.kuroki.paizinhovirgula2.entity.Item;
 import br.com.kuroki.paizinhovirgula2.persistence.PaizinhoDataBaseHelper;
 import br.com.kuroki.paizinhovirgula2.util.DateUtil;
@@ -44,29 +40,29 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
     private URL url;
     private String address = "";
 
-    private Context context;
-    private PaizinhoDataBaseHelper baseHelper;
-    private List<Item> listBanco;
+    //private final Context context;
+    //private PaizinhoDataBaseHelper baseHelper;
+    //private List<Item> list;
 
     public BlogRSSReader(Context context) {
-        this.context = context;
+        //this.context = context;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        try{
+        /*try{
             listBanco = getHelper().getItemDao().queryForAll();
         }catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
     protected void onPostExecute(List<Item> items) {
         super.onPostExecute(items);
-
-        if (items != null) {
+        feedItems = items;
+        /*if (items != null) {
             for (Item item: items) {
                 Item aux = item;
                 if (!listBanco.contains(aux)) {
@@ -78,15 +74,15 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
                     }
                 }
             }
-        }
+        }*/
     }
 
-    private PaizinhoDataBaseHelper getHelper() {
+    /*private PaizinhoDataBaseHelper getHelper() {
         if (baseHelper == null)
             baseHelper = new PaizinhoDataBaseHelper(context);
 
         return baseHelper;
-    }
+    }*/
 
     /***
      * pos 0 - URL

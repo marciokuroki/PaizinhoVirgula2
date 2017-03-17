@@ -41,19 +41,25 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
     private URL url;
     private String address = "";
 
-    private Context context;
+    private final Context context;
     private PaizinhoDataBaseHelper baseHelper;
     private List<Item> listBanco;
+    private final int tipo;
 
-    public PodcastRSSReader(Context context) {
+    public PodcastRSSReader(Context context, int tipo) {
         this.context = context;
+        this.tipo = tipo;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+
         try{
-            listBanco = getHelper().getItemDao().queryForAll();
+            //TODO Ajustar para trazer só de um tipo
+            //listBanco = getHelper().getItemDao().queryForAll();
+            listBanco = getHelper().getItemDao().queryForEq(Item.NMCP_TIPO, tipo);
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -153,6 +159,7 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
                 if (cureentchild.getNodeName().equalsIgnoreCase("item")) {
                     Item item = new Item();
                     item.setResumePosition(0);
+                    item.setTipo(tipo);
                     NodeList itemchilds = cureentchild.getChildNodes();
                     for (int j = 0; j < itemchilds.getLength(); j++) {
                         Node cureent = itemchilds.item(j);
