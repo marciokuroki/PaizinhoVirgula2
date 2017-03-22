@@ -1,5 +1,8 @@
 package br.com.kuroki.paizinhovirgula2.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,7 +13,7 @@ import java.util.Comparator;
  */
 
 @DatabaseTable(tableName = "tb_item")
-public class Item implements Comparator<Item>{
+public class Item implements Comparator<Item>, Parcelable{
 
     public static final int PODCAST_TIPO_TRICO_DE_PAIS = 1;
     public static final int PODCAST_TIPO_SINUCA_DE_BICOS = 2;
@@ -69,6 +72,25 @@ public class Item implements Comparator<Item>{
     private ForeignCollection<Categoria> categories;*/
 
     public Item() {}
+
+    public Item(Parcel parcel) {
+        //setId(parcel.readLong());
+        setTitle(parcel.readString());
+        setPubDate(parcel.readLong());
+        setDescription(parcel.readString());
+        setContent(parcel.readString());
+        setUrl(parcel.readString());
+        setImage(parcel.readString());
+        setLocalDownload(parcel.readString());
+        setResumePosition(parcel.readInt());
+        /*setDownloaded(false);
+        setViewed(false);*/
+        //setDuration(parcel.readLong());
+        //setNumeroEpisodio(parcel.readString());
+        //setNomePodcast(parcel.readString());
+        //setSizeMedia(parcel.readLong());
+        //setTipo(parcel.readInt());
+    }
 
     @Override
     public int compare(Item item, Item t1) {
@@ -234,4 +256,40 @@ public class Item implements Comparator<Item>{
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        //dest.writeLong(getId());
+        dest.writeString(getTitle());
+        dest.writeLong(getPubDate());
+        dest.writeString(getDescription());
+        dest.writeString(getContent());
+        dest.writeString(getUrl());
+        dest.writeString(getImage());
+        dest.writeString(getLocalDownload());
+        dest.writeInt(getResumePosition());
+        /*dest.write setDownloaded(false);
+        dest.write setViewed(false);*/
+        //dest.writeLong(getDuration());
+        //dest.writeString(getNumeroEpisodio());
+        //dest.writeString(getNomePodcast());
+        //dest.writeLong(getSizeMedia());
+        //dest.writeInt(getTipo());
+    }
+
+    public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>(){
+        @Override
+        public Item createFromParcel(Parcel source){
+            return( new Item(source));
+        }
+        @Override
+        public Item[] newArray(int size){
+            return(new Item[size]);
+        }
+    };
 }

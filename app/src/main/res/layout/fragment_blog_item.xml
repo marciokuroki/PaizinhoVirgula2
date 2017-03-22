@@ -31,7 +31,7 @@
         android:id="@+id/fbi_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
@@ -44,8 +44,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9"
-        android:background="@color/fundoTexto"
-        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:transitionName="@string/transition_string"/>
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:background="@color/fundoTexto"
-        android:textColor="@android:color/white"/>
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"/>
 
 </android.support.constraint.ConstraintLayout>

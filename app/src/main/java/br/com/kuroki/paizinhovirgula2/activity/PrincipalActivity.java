@@ -81,6 +81,9 @@ public class PrincipalActivity extends AppCompatActivity {
             currentFragment = new BlogFragment();
             transaction = fragmentManager.beginTransaction();
             transaction.add(R.id.main_container, currentFragment).commit();
+        }else {
+            transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.main_container, currentFragment).commit();
         }
     }
 

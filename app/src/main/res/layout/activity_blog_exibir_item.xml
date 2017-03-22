@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/abei_image"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_sinuca"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/abei_pubdate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="21 de março de 2017"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="13dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/abei_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/abei_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Titulo do Post"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/abei_image"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/abei_pubdate"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/abei_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Blabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal bal"
+                android:visibility="visible"
+                android:textColorLink="@color/red"/>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

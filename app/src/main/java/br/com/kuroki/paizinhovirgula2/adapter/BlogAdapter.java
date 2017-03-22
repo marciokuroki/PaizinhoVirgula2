@@ -2,6 +2,7 @@ package br.com.kuroki.paizinhovirgula2.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,14 +80,15 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
             pubdate.setText(DateUtil.converteLongToDate(item.getPubDate(), "dd 'de' MMMM 'de' yyyy"));
             Picasso.with(itemView.getContext())
                     .load(item.getImage())
-                    .placeholder(R.mipmap.ic_trico)
-                    .error(R.mipmap.ic_trico)
+                    .placeholder(R.mipmap.ic_paizinho)
+                    .error(R.mipmap.ic_paizinho)
                     .into(imagem);
         }
 
         @Override
         public void onClick(View v) {
             if (listener != null) {
+                Log.i("Blog_Adapter", "item_selecionado: " + items.get(getPosition()));
                 listener.onItemClick(v, items.get(getPosition()));
             }
         }

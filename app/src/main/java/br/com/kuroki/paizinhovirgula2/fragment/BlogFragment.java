@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,18 +42,9 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
     @Override
     public void onItemClick(View view, Item item) {
         Intent intent = new Intent(getActivity(), BlogExibirItemActivity.class);
-        String transitionImage = getString(R.string.transition_image);
-        String transitionName = getString(R.string.transition_string);
-
-        View viewStart = getActivity().findViewById(R.id.blog_item_id);
-
-        Pair<View, String> pair1 = new Pair<>(viewStart, transitionName);
-        Pair<View, String> pair2 = new Pair<>(viewStart, transitionImage);
-
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pair1, pair2);
-
-        intent.putExtra("itemID", item.getId());
-        ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
+        Log.i("BLOG_FRAGMENT", "ITEM: "+ item);
+        intent.putExtra("itemSelecionado", item);
+        startActivity(intent);
     }
 
 // --Commented out by Inspection START (16/03/17 16:27):
