@@ -160,6 +160,7 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
                     Item item = new Item();
                     item.setResumePosition(0);
                     item.setTipo(tipo);
+                    item.setDuration(0l);
                     NodeList itemchilds = cureentchild.getChildNodes();
                     for (int j = 0; j < itemchilds.getLength(); j++) {
                         Node cureent = itemchilds.item(j);
