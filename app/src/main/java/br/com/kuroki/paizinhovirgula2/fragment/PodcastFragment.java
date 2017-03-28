@@ -75,7 +75,9 @@ public class PodcastFragment extends Fragment implements OnItemClickListener{
 
         //PodcastRSSReader podcastRSSReader = new PodcastRSSReader(getActivity(), Item.PODCAST_TIPO_TRICO_DE_PAIS);
         //podcastRSSReader.execute("http://paizinhovirgula.com/feed/podcast");
-        getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcast");
+        if (listPodcast == null || listPodcast.size() == 0) {
+            getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcast");
+        }
 
         recyclerView.setHasFixedSize(true);
 

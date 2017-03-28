@@ -167,11 +167,17 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
                             item.setTitle(cureent.getTextContent());
                         }else if(cureent.getNodeName().equalsIgnoreCase("enclosure")) {
                             String mediaUrl=cureent.getAttributes().item(0).getTextContent();
-                            if (mediaUrl.contains("media.blubrry")) {
+                            /*if (mediaUrl.contains("media.blubrry")) {
                                 mediaUrl = mediaUrl.replace("media.blubrry.com/tricodepais/", "");
-                            }
+                            }*/
                             item.setUrl(mediaUrl);
                             item.setSizeMedia(Long.parseLong(cureent.getAttributes().item(1).getTextContent()));
+                            if (tipo == Item.PODCAST_TIPO_SINUCA_DE_BICOS) {
+                                item.setNomePodcast("Sinuca_de_Bicos");
+                            }else {
+                                item.setNomePodcast("Trico_de_Pais");
+                            }
+                            item.setNumeroEpisodio(item.getTitle().substring(item.getTitle().length()-3));
                         }else if(cureent.getNodeName().equalsIgnoreCase("pubDate")) {
                             Date date = DateUtil.formataData(cureent.getTextContent());
                             Calendar calendar = Calendar.getInstance();
@@ -189,6 +195,9 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
                         }else if (cureent.getNodeName().equalsIgnoreCase("rawvoice:poster")) {
                             String url=cureent.getAttributes().item(0).getTextContent();
                             item.setImage(url);
+                        }else if (cureent.getNodeName().equalsIgnoreCase("itunes:duration")) {
+                            String duration = cureent.getTextContent();
+                            item.setDuration(DateUtil.converterStringToLong(duration));
                         }
                     }
 

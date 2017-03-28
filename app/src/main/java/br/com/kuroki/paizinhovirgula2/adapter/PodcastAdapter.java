@@ -87,12 +87,16 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         }
 
         public void bind (final Item item) {
+            int placeHolder = R.mipmap.ic_trico;
+            if (item.getTipo() == Item.PODCAST_TIPO_SINUCA_DE_BICOS)
+                placeHolder = R.mipmap.ic_sinuca;
+
             title.setText(item.getTitle());
             pubdate.setText(DateUtil.converteLongToDate(item.getPubDate(), "dd 'de' MMMM 'de' yyyy"));
             Picasso.with(itemView.getContext())
                     .load(item.getImage())
-                    .placeholder(R.mipmap.ic_trico)
-                    .error(R.mipmap.ic_trico)
+                    .placeholder(placeHolder)
+                    .error(placeHolder)
                     .into(imagem);
         }
 
