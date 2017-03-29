@@ -9,7 +9,7 @@
     android:layout_height="match_parent">
 
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/apei_replay"
         android:layout_width="114dp"
         android:layout_height="wrap_content"
@@ -22,20 +22,19 @@
         android:layout_marginStart="8dp"
         android:onClick="replay15SecMusic"/>
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/apei_play"
         android:layout_width="114dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/apei_replay"
         app:srcCompat="@drawable/player_selector"
-        android:src="@drawable/player_selector"
         app:layout_constraintTop_toTopOf="@+id/apei_replay"
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
         android:onClick="playMusic"
         app:layout_constraintBottom_toBottomOf="@+id/apei_replay" />
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/apei_foward"
         android:layout_width="114dp"
         android:layout_height="wrap_content"
@@ -55,14 +54,15 @@
     <ImageView
         android:id="@+id/apei_imagem"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
@@ -128,12 +128,11 @@
         android:layout_marginEnd="8dp"
         android:id="@+id/space2" />
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/apei_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/downloader_selector"
-        android:src="@drawable/downloader_selector"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/apei_imagem"
         app:layout_constraintTop_toTopOf="@+id/apei_imagem"

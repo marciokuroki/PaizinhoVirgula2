@@ -98,7 +98,6 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
      */
     @Override
     protected List<Item> doInBackground(String... params) {
-        Log.i(TAG, Thread.currentThread().getName());
         Log.i(TAG, params[0]);
         address = params[0];
 
@@ -168,9 +167,6 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
                             item.setTitle(cureent.getTextContent());
                         }else if(cureent.getNodeName().equalsIgnoreCase("enclosure")) {
                             String mediaUrl=cureent.getAttributes().item(0).getTextContent();
-                            /*if (mediaUrl.contains("media.blubrry")) {
-                                mediaUrl = mediaUrl.replace("media.blubrry.com/tricodepais/", "");
-                            }*/
                             item.setUrl(mediaUrl);
                             item.setSizeMedia(Long.parseLong(cureent.getAttributes().item(1).getTextContent()));
                             if (tipo == Item.PODCAST_TIPO_SINUCA_DE_BICOS) {

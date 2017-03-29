@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.onesignal.OneSignal;
+
 import br.com.kuroki.paizinhovirgula2.R;
 import br.com.kuroki.paizinhovirgula2.fragment.BlogFragment;
 import br.com.kuroki.paizinhovirgula2.fragment.EventoFragment;
@@ -32,6 +34,8 @@ public class PrincipalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        OneSignal.startInit(this).init();
+
         setContentView(R.layout.activity_principal);
 
         fragmentManager = this.getSupportFragmentManager();
@@ -73,7 +77,7 @@ public class PrincipalActivity extends AppCompatActivity {
         bottomNavigationView.getMenu().getItem(0).setEnabled(true);
         bottomNavigationView.getMenu().getItem(1).setEnabled(true);
         bottomNavigationView.getMenu().getItem(2).setEnabled(true);
-        bottomNavigationView.getMenu().getItem(3).setEnabled(true);
+        bottomNavigationView.getMenu().getItem(3).setEnabled(false);
         bottomNavigationView.getMenu().getItem(4).setEnabled(true);
 
         if (currentFragment == null) {

@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -28,14 +30,17 @@ import br.com.kuroki.paizinhovirgula2.entity.Item;
 import br.com.kuroki.paizinhovirgula2.persistence.PaizinhoDataBaseHelper;
 import br.com.kuroki.paizinhovirgula2.task.DownloadTask;
 import br.com.kuroki.paizinhovirgula2.task.interfaces.ITarefaDownload;
-import br.com.kuroki.paizinhovirgula2.util.DateUtil;
 import br.com.kuroki.paizinhovirgula2.util.UlTagHandler;
 
 public class PodcastExibirItemActivity extends AppCompatActivity implements ITarefaDownload, MediaPlayer.OnPreparedListener, MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnErrorListener {
 
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
     private ImageView image;
     private TextView current, content;
-    private ImageButton play, replay, foward, download;
+    private AppCompatImageButton play, replay, foward, download;
     private ProgressBar progressBar;
 
     private Long idItem;
@@ -50,7 +55,6 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
     private long duration;
     private boolean isPlaying;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +67,11 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
 
         content = (TextView) findViewById(R.id.apei_content);
 
-        play = (ImageButton) findViewById(R.id.apei_play);
+        play = (AppCompatImageButton) findViewById(R.id.apei_play);
         //replay = (ImageButton) findViewById(R.id.apei_replay);
         //foward = (ImageButton) findViewById(R.id.apei_foward);
 
-        download = (ImageButton) findViewById(R.id.apei_download);
+        download = (AppCompatImageButton) findViewById(R.id.apei_download);
         /*download.setActivated(true);
         download.setEnabled(true);*/
         habilitaDownload();
@@ -107,6 +111,7 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                     .load(itemSelecionado.getImage())
                     .placeholder(icone)
                     .error(icone)
+                    .resize(300, 300)
                     .into(image);
 
             if (Build.VERSION.SDK_INT >= 24) {

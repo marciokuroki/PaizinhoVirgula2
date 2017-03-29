@@ -82,6 +82,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
                     .load(item.getImage())
                     .placeholder(R.mipmap.ic_paizinho)
                     .error(R.mipmap.ic_paizinho)
+                    .resize(300, 300)
                     .into(imagem);
         }
 

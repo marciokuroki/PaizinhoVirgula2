@@ -63,7 +63,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         final TextView title;
         final TextView pubdate;
         final ImageView imagem;
-        final ImageButton imageButton;
+        //final ImageButton imageButton;
 
         public PodcastViewHolder(View itemView) {
             super(itemView);
@@ -71,7 +71,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             title = (TextView) itemView.findViewById(R.id.fpi_title);
             pubdate = (TextView) itemView.findViewById(R.id.fpi_pubdate);
             imagem = (ImageView) itemView.findViewById(R.id.fpi_image);
-            imageButton = (ImageButton) itemView.findViewById(R.id.fpi_play);
+            /*imageButton = (ImageButton) itemView.findViewById(R.id.fpi_play);
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,7 +81,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
                         imageButton.setActivated(true);
                     }
                 }
-            });
+            });*/
 
             itemView.setOnClickListener(this);
         }
@@ -97,6 +97,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
                     .load(item.getImage())
                     .placeholder(placeHolder)
                     .error(placeHolder)
+                    .resize(300, 300)
                     .into(imagem);
         }
 
