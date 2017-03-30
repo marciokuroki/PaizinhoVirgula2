@@ -65,8 +65,7 @@ public class PrincipalActivity extends AppCompatActivity {
                         currentFragment = new SinucaFragment();
                         break;
                 }
-                transaction.replace(R.id.main_container, currentFragment);
-                transaction.commit();
+                transaction.replace(R.id.main_container, currentFragment).commit();
                 return true;
             }
         });

@@ -1,8 +1,12 @@
 package br.com.kuroki.paizinhovirgula2.fragment;
 
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.UiThread;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -13,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -64,16 +69,8 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /*try {
-            listBlog = getHelper().getItemDao().queryForAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-
-        //BlogRSSReader blogRSSReader = new BlogRSSReader(getActivity());
 
         //TODO Criar um Enum ou arquivo de configuração para armazenar os feeds
-        //blogRSSReader.execute("http://paizinhovirgula.com/category/blog/feed");
         getBlogRssReader().execute("http://paizinhovirgula.com/category/blog/feed");
 
         try {

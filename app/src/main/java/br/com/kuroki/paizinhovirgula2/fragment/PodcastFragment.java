@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import br.com.kuroki.paizinhovirgula2.R;
 import br.com.kuroki.paizinhovirgula2.activity.PodcastExibirItemActivity;
@@ -61,34 +64,41 @@ public class PodcastFragment extends Fragment implements OnItemClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_podcast, container, false);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycle_podcast);
-        emptyView = (TextView) view.findViewById(R.id.empty_view_podcast);
 
         try {
-            //listPodcast = getHelper().getItemDao().queryForAll();
             listPodcast = getHelper().getItemDao().queryForEq(Item.NMCP_TIPO, Item.PODCAST_TIPO_TRICO_DE_PAIS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        //PodcastRSSReader podcastRSSReader = new PodcastRSSReader(getActivity(), Item.PODCAST_TIPO_TRICO_DE_PAIS);
-        //podcastRSSReader.execute("http://paizinhovirgula.com/feed/podcast");
-        if (listPodcast == null || listPodcast.size() == 0) {
-            getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcast");
-        }
+        adapter = new PodcastAdapter(listPodcast, getActivity());
+        adapter.setListener(this);
 
+        View view = inflater.inflate(R.layout.fragment_podcast, container, false);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycle_podcast);
+
+        emptyView = (TextView) view.findViewById(R.id.empty_view_podcast);
+
+        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-
         recyclerView.setLayoutManager(llm);
 
-        adapter = new PodcastAdapter(listPodcast, getActivity());
-        adapter.setListener(this);
-        recyclerView.setAdapter(adapter);
+
+        if (listPodcast == null || listPodcast.size() == 0) {
+            try{
+                getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcast");
+                listPodcast.addAll(getPodcastRSSReader().get());
+                adapter.notifyItemRangeInserted(0, listPodcast.size());
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
 
         //TODO Fazer checagem da consulta da listagem
         //Se a listagem vazia, preenche com o texto

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import br.com.kuroki.paizinhovirgula2.R;
 import br.com.kuroki.paizinhovirgula2.activity.PodcastExibirItemActivity;
@@ -53,10 +54,6 @@ public class SinucaFragment extends Fragment implements OnItemClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_podcast, container, false);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycle_podcast);
-        emptyView = (TextView) view.findViewById(R.id.empty_view_podcast);
 
         try {
             listPodcast = getHelper().getItemDao().queryForEq(Item.NMCP_TIPO, Item.PODCAST_TIPO_SINUCA_DE_BICOS);
@@ -64,22 +61,34 @@ public class SinucaFragment extends Fragment implements OnItemClickListener {
             e.printStackTrace();
         }
 
-        //PodcastRSSReader podcastRSSReader = new PodcastRSSReader(getActivity(), Item.PODCAST_TIPO_SINUCA_DE_BICOS);
+        adapter = new PodcastAdapter(listPodcast, getActivity());
+        adapter.setListener(this);
 
-        //TODO pegar a URL do feed do BLOG;
-        //podcastRSSReader.execute("http://paizinhovirgula.com/feed/podcastsinucadebicos");
-        getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcastsinucadebicos");
+        View view = inflater.inflate(R.layout.fragment_podcast, container, false);
 
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycle_podcast);
+
+        emptyView = (TextView) view.findViewById(R.id.empty_view_podcast);
+
+        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-
         recyclerView.setLayoutManager(llm);
 
-        adapter = new PodcastAdapter(listPodcast, getActivity());
-        adapter.setListener(this);
-        recyclerView.setAdapter(adapter);
+        if (listPodcast == null || listPodcast.size() == 0) {
+            try{
+                //TODO pegar a URL do feed do BLOG;
+                getPodcastRSSReader().execute("http://paizinhovirgula.com/feed/podcastsinucadebicos");
+                listPodcast.addAll(getPodcastRSSReader().get());
+                adapter.notifyItemRangeInserted(0, listPodcast.size());
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
 
         //TODO Fazer checagem da consulta da listagem
         //Se a listagem vazia, preenche com o texto
