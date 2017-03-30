@@ -73,7 +73,7 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
         download = (AppCompatImageButton) findViewById(R.id.apei_download);
         /*download.setActivated(true);
         download.setEnabled(true);*/
-        habilitaDownload();
+        //habilitaDownload();
 
         idItem = getIntent().getLongExtra("itemID", -1l);
 
@@ -85,14 +85,14 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                 progressBar.setMax(itemSelecionado.getDuration().intValue());
             }
 
+            download.setActivated(true);
+            download.setEnabled(true);
+
             if (itemSelecionado.getLocalDownload() != null) {
                 File arquivo = new File(itemSelecionado.getLocalDownload());
                 if (arquivo.length() == itemSelecionado.getSizeMedia()) {
                     download.setActivated(false);
                     download.setEnabled(false);
-                }else{
-                    download.setActivated(true);
-                    download.setEnabled(true);
                 }
             }
 
@@ -110,7 +110,7 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                     .load(itemSelecionado.getImage())
                     .placeholder(icone)
                     .error(icone)
-                    .resize(300, 300)
+                    .resize(600, 0)
                     .into(image);
 
             if (Build.VERSION.SDK_INT >= 24) {

@@ -50,7 +50,7 @@ public class BlogExibirItemActivity extends AppCompatActivity {
                     .load(itemSelecionado.getImage())
                     .placeholder(R.mipmap.ic_paizinho)
                     .error(R.mipmap.ic_paizinho)
-                    .resize(300, 300)
+                    .resize(600, 0)
                     .into(image);
         }
     }

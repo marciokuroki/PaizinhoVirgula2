@@ -97,7 +97,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
                     .load(item.getImage())
                     .placeholder(placeHolder)
                     .error(placeHolder)
-                    .resize(300, 300)
+                    .resize(600, 0)
                     .into(imagem);
         }
 

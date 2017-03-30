@@ -10,9 +10,22 @@
 
 
     <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/apei_download"
+        android:layout_width="84dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/apei_foward"
+        app:srcCompat="@drawable/downloader_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/apei_foward"
+        app:layout_constraintLeft_toRightOf="@+id/apei_foward"
+        app:layout_constraintVertical_bias="0.625" />
+
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/apei_replay"
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
+        android:layout_width="83dp"
+        android:layout_height="43dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -20,49 +33,50 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_media_rew"
         android:layout_marginStart="8dp"
-        android:onClick="replay15SecMusic"/>
+        android:onClick="replay15SecMusic"
+        app:layout_constraintRight_toLeftOf="@+id/apei_play" />
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/apei_play"
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
+        android:layout_width="84dp"
+        android:layout_height="43dp"
         app:layout_constraintLeft_toRightOf="@+id/apei_replay"
         app:srcCompat="@drawable/player_selector"
         app:layout_constraintTop_toTopOf="@+id/apei_replay"
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
         android:onClick="playMusic"
-        app:layout_constraintBottom_toBottomOf="@+id/apei_replay" />
+        app:layout_constraintBottom_toBottomOf="@+id/apei_replay"
+        app:layout_constraintRight_toLeftOf="@+id/apei_foward"
+        app:layout_constraintVertical_bias="0.875" />
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/apei_foward"
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="13dp"
+        android:layout_width="83dp"
+        android:layout_height="43dp"
         android:layout_marginLeft="7dp"
-        android:layout_marginRight="13dp"
         android:layout_marginStart="7dp"
         app:layout_constraintBottom_toBottomOf="@+id/apei_play"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@android:drawable/ic_media_ff"
         android:onClick="foward15SecMusic"
         app:layout_constraintTop_toTopOf="@+id/apei_play"
         app:layout_constraintLeft_toRightOf="@+id/apei_play"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintRight_toLeftOf="@+id/apei_download" />
 
     <ImageView
         android:id="@+id/apei_imagem"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:adjustViewBounds="true"
-        android:cropToPadding="true"
-        android:scaleType="centerCrop"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
@@ -109,9 +123,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline"
-        app:layout_constraintGuide_begin="302dp"
+        app:layout_constraintGuide_begin="339dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="302dp"
+        tools:layout_editor_absoluteY="339dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <Space
@@ -127,24 +141,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:id="@+id/space2" />
-
-    <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/apei_download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/downloader_selector"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/apei_imagem"
-        app:layout_constraintTop_toTopOf="@+id/apei_imagem"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/apei_imagem"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/apei_progress"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -173,7 +169,9 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColorLink="@color/red"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="-11dp" />
         </LinearLayout>
     </ScrollView>
 
