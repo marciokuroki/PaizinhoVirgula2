@@ -8,6 +8,8 @@ import android.text.method.LinkMovementMethod;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import br.com.kuroki.paizinhovirgula2.R;
 import br.com.kuroki.paizinhovirgula2.entity.Item;
 import br.com.kuroki.paizinhovirgula2.util.DateUtil;
@@ -43,6 +45,13 @@ public class BlogExibirItemActivity extends AppCompatActivity {
                 content.setText(Html.fromHtml(aux));
                 content.setMovementMethod(LinkMovementMethod.getInstance());
             }
+
+            Picasso.with(this)
+                    .load(itemSelecionado.getImage())
+                    .placeholder(R.mipmap.ic_paizinho)
+                    .error(R.mipmap.ic_paizinho)
+                    .resize(300, 300)
+                    .into(image);
         }
     }
 }

@@ -13,7 +13,6 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -260,7 +259,6 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                             Uri uri = Uri.fromFile(arquivo);
                             player = new MediaPlayer();
                             player.setDataSource(PodcastExibirItemActivity.this, uri);
-                            player.prepareAsync();
                         }else {
                             deletarArquivoLocal(itemSelecionado.getLocalDownload());
 
@@ -268,16 +266,16 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                             player = new MediaPlayer();
                             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
                             player.setDataSource(itemSelecionado.getUrl());
-                            player.prepareAsync();
                         }
                     }else {
                         //TODO stream de audio
                         player = new MediaPlayer();
                         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
                         player.setDataSource(itemSelecionado.getUrl());
-                        player.prepareAsync();
                     }
                 }
+
+                player.prepareAsync();
                 player.seekTo((int) currentTime);
                 player.setOnBufferingUpdateListener(this);
                 player.setOnCompletionListener(this);
