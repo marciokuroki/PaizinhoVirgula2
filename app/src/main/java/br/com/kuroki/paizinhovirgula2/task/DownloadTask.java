@@ -94,8 +94,10 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(sUrl[0]);
             connection = (HttpURLConnection) url.openConnection();
-            Log.i("#### DOWNLOAD_TASK", connection.getURL().toString());
+            connection.setDoOutput(true);
+            connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", userAgent);
+            Log.i("#### DOWNLOAD_TASK", connection.getURL().toString());
             connection.connect();
 
             // this will be useful to display download percentage
@@ -112,8 +114,9 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
             notificationBuilder.setContentText("Download do " + arquivo);
             notificationManager.notify(notify_id, notificationBuilder.build());
 
-            byte data[] = new byte[4096];
+            byte data[] = new byte[1024];
             long total = 0;
+            int previousProgress = (int) (total * 100 / fileLength);
             int count;
             while ((count = input.read(data)) != -1) {
                 //Log.i("###TEST", "Entrei no laço");
@@ -127,10 +130,15 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
                     return null;
                 }
                 total += count;
-                Log.i("Atualizando... ", ""+total);
+                //Log.i("Atualizando... ", ""+total);
                 // publishing the progress....
-                if (fileLength > 0) // only if total length is known
-                    publishProgress((int) (total * 100 / fileLength));
+                if (fileLength > 0) {// only if total length is known
+                    if ((int) (total * 100/ fileLength) > previousProgress ) {
+                        Log.i("Atualizando... ", ""+total);
+                        previousProgress = (int) (total * 100 / fileLength);
+                        publishProgress((int) (total * 100 / fileLength));
+                    }
+                }
                 output.write(data, 0, count);
             }
 

@@ -1,5 +1,6 @@
 package br.com.kuroki.paizinhovirgula2.task;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -46,6 +47,8 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
     private List<Item> listBanco;
     private final int tipo;
 
+    private ProgressDialog progressDialog;
+
     public PodcastRSSReader(Context context, int tipo) {
         this.context = context;
         this.tipo = tipo;
@@ -55,7 +58,7 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-
+        progressDialog = ProgressDialog.show(context, "", "Carregando", true, true);
         try{
             //TODO Ajustar para trazer só de um tipo
             //listBanco = getHelper().getItemDao().queryForAll();
@@ -82,6 +85,7 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
                 }
             }
         }
+        progressDialog.dismiss();
     }
 
     private PaizinhoDataBaseHelper getHelper() {

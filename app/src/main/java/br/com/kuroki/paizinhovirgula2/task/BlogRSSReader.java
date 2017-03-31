@@ -1,5 +1,6 @@
 package br.com.kuroki.paizinhovirgula2.task;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -42,17 +43,19 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
     private URL url;
     private String address = "";
 
-    //private final Context context;
+    private final Context context;
+    private ProgressDialog dialog;
     //private PaizinhoDataBaseHelper baseHelper;
     //private List<Item> list;
 
     public BlogRSSReader(Context context) {
-        //this.context = context;
+        this.context = context;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        dialog = ProgressDialog.show(context, "Carregando...", "Aguarde...", true);
         /*try{
             listBanco = getHelper().getItemDao().queryForAll();
         }catch (SQLException e) {
@@ -64,6 +67,7 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
     protected void onPostExecute(List<Item> items) {
         super.onPostExecute(items);
         feedItems = items;
+        dialog.dismiss();
         /*if (items != null) {
             for (Item item: items) {
                 Item aux = item;
@@ -93,10 +97,8 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
      */
     @Override
     protected List<Item> doInBackground(String... params) {
-        Log.i(TAG, Thread.currentThread().getName());
         Log.i(TAG, params[0]);
         address = params[0];
-
 
         try {
             feedItems = processXml(getdata());

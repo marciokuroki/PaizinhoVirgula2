@@ -1,5 +1,7 @@
 package br.com.kuroki.paizinhovirgula2.activity;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -13,6 +15,8 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -131,8 +135,24 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
             public void onClick(View v) {
                 if (itemSelecionado != null) {
                     DownloadTask downloadTask = new DownloadTask(PodcastExibirItemActivity.this, PodcastExibirItemActivity.this);
-                    nomeArquivo = itemSelecionado.getNomePodcast() + "_" + itemSelecionado.getNumeroEpisodio() + ".mp3";
+                    nomeArquivo = URLUtil.guessFileName(itemSelecionado.getUrl(), null, MimeTypeMap.getFileExtensionFromUrl(itemSelecionado.getUrl()));
+                    //nomeArquivo = itemSelecionado.getNomePodcast() + "_" + itemSelecionado.getNumeroEpisodio() + ".mp3";
                     downloadTask.execute(itemSelecionado.getUrl(), nomeArquivo, itemSelecionado.getId().toString());
+
+                    /*nomeArquivo = URLUtil.guessFileName(itemSelecionado.getUrl(), null, MimeTypeMap.getFileExtensionFromUrl(itemSelecionado.getUrl()));
+
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(itemSelecionado.getUrl()));
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+                    request.setDescription("Baixando o Episódio...");
+                    request.setTitle("Download de " + nomeArquivo.substring(0, nomeArquivo.length()-2));
+                    request.setVisibleInDownloadsUi(false);
+
+                    File file = PodcastExibirItemActivity.this.getFileStreamPath(nomeArquivo);
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setDestinationUri(Uri.fromFile(file));
+
+                    DownloadManager downloadManager = (DownloadManager) PodcastExibirItemActivity.this.getSystemService(Context.DOWNLOAD_SERVICE);
+                    downloadManager.enqueue(request);*/
                 }
             }
         });
@@ -260,7 +280,7 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                             player = new MediaPlayer();
                             player.setDataSource(PodcastExibirItemActivity.this, uri);
                         }else {
-                            deletarArquivoLocal(itemSelecionado.getLocalDownload());
+                           // deletarArquivoLocal(itemSelecionado.getLocalDownload());
 
                             //TODO stream de audio
                             player = new MediaPlayer();
@@ -396,13 +416,38 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
         try {
             File arquivoAudio = new File(audio);
             if (arquivoAudio.exists()) {
-                Toast.makeText(this, arquivoAudio.getName(), Toast.LENGTH_LONG);
+                Toast.makeText(this, "Download do " + arquivoAudio.getName() +" completo.", Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            itemSelecionado = getHelper().getItemDao().queryForId(idItem);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         habilitaDownload();
+        if (isPlaying) {
+            player.pause();
+            currentTime = player.getCurrentPosition();
+            atualizarCurrentTimeNoBanco();
+
+            File arquivo = new File(itemSelecionado.getLocalDownload());
+            if (arquivo.length() == itemSelecionado.getSizeMedia() ) {
+                //TODO carregar o audio do app se o tamanho do arquivo for igual ao da descrição.
+                Uri uri = Uri.fromFile(arquivo);
+                player = new MediaPlayer();
+                try {
+                    player.setDataSource(PodcastExibirItemActivity.this, uri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                player.prepareAsync();
+            }
+            player.seekTo(itemSelecionado.getResumePosition());
+            player.start();
+        }
     }
 
     private void habilitaDownload() {
