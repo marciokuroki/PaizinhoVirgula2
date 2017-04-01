@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -36,7 +38,7 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
     private RecyclerView recyclerView;
     private TextView emptyView;
     private BlogAdapter adapter;
-    private List<Item> listBlog;
+    private ArrayList<Item> listBlog = new ArrayList<>();
 
     private PaizinhoDataBaseHelper baseHelper;
 
@@ -67,16 +69,26 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("blogItens", listBlog);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //TODO Criar um Enum ou arquivo de configuração para armazenar os feeds
-        getBlogRssReader().execute("http://paizinhovirgula.com/category/blog/feed");
+        if (savedInstanceState == null || !savedInstanceState.containsKey("blogItens")) {
+            //TODO Criar um Enum ou arquivo de configuração para armazenar os feeds
+            getBlogRssReader().execute("http://paizinhovirgula.com/category/blog/feed");
 
-        try {
-            listBlog = blogRSSReader.get();
-        }catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            try {
+                listBlog.addAll(blogRSSReader.get());
+            }catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }else {
+            listBlog = savedInstanceState.getParcelableArrayList("blogItens");
         }
 
         View view = inflater.inflate(R.layout.fragment_blog, container, false);
