@@ -1,28 +1,18 @@
 package br.com.kuroki.paizinhovirgula2.fragment;
 
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.UiThread;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import br.com.kuroki.paizinhovirgula2.R;
@@ -78,6 +68,9 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_blog, container, false);
+        emptyView = (TextView) view.findViewById(R.id.empty_view_blog);
+
         if (savedInstanceState == null || !savedInstanceState.containsKey("blogItens")) {
             //TODO Criar um Enum ou arquivo de configuração para armazenar os feeds
             getBlogRssReader().execute("http://paizinhovirgula.com/category/blog/feed");
@@ -86,15 +79,21 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
                 listBlog.addAll(blogRSSReader.get());
             }catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+            }catch (Exception e) {
+                listBlog.clear();
+                emptyView.setText("Desculpe, Site do Paizinho com problemas. Favor, tente mais tarde.");
             }
         }else {
             listBlog = savedInstanceState.getParcelableArrayList("blogItens");
         }
 
-        View view = inflater.inflate(R.layout.fragment_blog, container, false);
+
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycle_blog);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(10);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -104,8 +103,6 @@ public class BlogFragment extends Fragment implements OnItemClickListener {
         adapter = new BlogAdapter(listBlog, getActivity());
         adapter.setListener(this);
         recyclerView.setAdapter(adapter);
-
-        emptyView = (TextView) view.findViewById(R.id.empty_view_blog);
 
         //TODO Fazer checagem da consulta da listagem
         //Se a listagem vazia, preenche com o texto

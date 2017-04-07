@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -112,10 +114,34 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
 
             Picasso.with(this)
                     .load(itemSelecionado.getImage())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
                     .placeholder(icone)
                     .error(icone)
                     .resize(600, 0)
-                    .into(image);
+                    .into(image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            //Try again online if cache failed
+                            Picasso.with(getApplicationContext())
+                                    .load(itemSelecionado.getImage())
+                                    .error(R.mipmap.ic_paizinho)
+                                    .into(image, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                        }
+
+                                        @Override
+                                        public void onError() {
+                                            Log.v("Picasso","Could not fetch image");
+                                        }
+                                    });
+                        }
+                    });
 
             if (Build.VERSION.SDK_INT >= 24) {
                 content.setText(Html.fromHtml(itemSelecionado.getContent(), Html.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM, null, new UlTagHandler()));

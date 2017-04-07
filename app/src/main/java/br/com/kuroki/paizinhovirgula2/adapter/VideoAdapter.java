@@ -25,31 +25,32 @@ import br.com.kuroki.paizinhovirgula2.util.DateUtil;
  * Created by marciokuroki on 13/03/17.
  */
 
-public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
 
     private List<Item> items = Collections.emptyList();
     // --Commented out by Inspection (16/03/17 16:27):private final Context context;
     private final LayoutInflater inflater;
     private OnItemClickListener listener;
 
-    public BlogAdapter(List<Item> list, Context context) {
+
+    public VideoAdapter(List<Item> list, Context context) {
         this.items = list;
         //this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public void onBindViewHolder(BlogViewHolder holder, int position) {
+    public void onBindViewHolder(VideoViewHolder holder, int position) {
         //super.onBindViewHolder(holder, position, payloads);
         holder.bind(items.get(position));
     }
 
     @Override
-    public BlogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.fragment_blog_item, parent, false);
-        BlogViewHolder blogViewHolder = new BlogViewHolder(view);
+    public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.fragment_video_item, parent, false);
+        VideoViewHolder videoViewHolder = new VideoViewHolder(view);
 
-        return blogViewHolder;
+        return videoViewHolder;
     }
 
     @Override
@@ -61,17 +62,17 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         listener = l;
     }
 
-    public class BlogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class VideoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView title;
-        final TextView pubdate;
+        final TextView subtitle;
         final ImageView imagem;
 
-        public BlogViewHolder(View itemView) {
+        public VideoViewHolder(View itemView) {
             super(itemView);
 
-            title = (TextView) itemView.findViewById(R.id.fbi_title);
-            pubdate = (TextView) itemView.findViewById(R.id.fbi_pubdate);
-            imagem = (ImageView) itemView.findViewById(R.id.fbi_image);
+            title = (TextView) itemView.findViewById(R.id.fvi_title);
+            subtitle = (TextView) itemView.findViewById(R.id.fvi_subtitle);
+            imagem = (ImageView) itemView.findViewById(R.id.fvi_image);
 
             itemView.setOnClickListener(this);
         }
@@ -79,7 +80,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         //TODO item
         public void bind (final Item item) {
             title.setText(item.getTitle());
-            pubdate.setText(DateUtil.converteLongToDate(item.getPubDate(), "dd 'de' MMMM 'de' yyyy"));
+            subtitle.setText(DateUtil.converteLongToDate(item.getPubDate(), "dd 'de' MMMM 'de' yyyy"));
             Picasso.with(itemView.getContext())
                     .load(item.getImage())
                     .networkPolicy(NetworkPolicy.OFFLINE)
@@ -115,7 +116,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         @Override
         public void onClick(View v) {
             if (listener != null) {
-                Log.i("Blog_Adapter", "item_selecionado: " + items.get(getPosition()));
+                Log.i("Video_Adapter", "item_selecionado: " + items.get(getPosition()));
                 listener.onItemClick(v, items.get(getPosition()));
             }
         }

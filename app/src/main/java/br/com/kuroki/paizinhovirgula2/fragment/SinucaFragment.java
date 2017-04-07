@@ -87,6 +87,9 @@ public class SinucaFragment extends Fragment implements OnItemClickListener {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
+            }catch (Exception e) {
+                listPodcast.clear();
+                emptyView.setText("Desculpe, Site do Paizinho com problemas. Favor, tente mais tarde.");
             }
         }
 

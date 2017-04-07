@@ -2,6 +2,7 @@ package br.com.kuroki.paizinhovirgula2.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -95,10 +98,34 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             pubdate.setText(DateUtil.converteLongToDate(item.getPubDate(), "dd 'de' MMMM 'de' yyyy"));
             Picasso.with(itemView.getContext())
                     .load(item.getImage())
-                    .placeholder(placeHolder)
-                    .error(placeHolder)
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .placeholder(R.mipmap.ic_paizinho)
+                    .error(R.mipmap.ic_paizinho)
                     .resize(600, 0)
-                    .into(imagem);
+                    .into(imagem, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            //Try again online if cache failed
+                            Picasso.with(itemView.getContext())
+                                    .load(item.getImage())
+                                    .error(R.mipmap.ic_paizinho)
+                                    .into(imagem, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                        }
+
+                                        @Override
+                                        public void onError() {
+                                            Log.v("Picasso","Could not fetch image");
+                                        }
+                                    });
+                        }
+                    });
         }
 
         @Override

@@ -42,6 +42,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
 
     compile "com.jakewharton:butterknife:8.5.1"
     annotationProcessor "com.jakewharton:butterknife-compiler:8.5.1"

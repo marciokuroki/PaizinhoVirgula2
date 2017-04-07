@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import br.com.kuroki.paizinhovirgula2.R;
@@ -41,7 +44,7 @@ public class BlogExibirItemActivity extends AppCompatActivity implements AppBarL
         setSupportActionBar(toolbar);
 
         Bundle parametros = getIntent().getExtras();
-        Item itemSelecionado = (Item) parametros.get("itemSelecionado");
+        final Item itemSelecionado = (Item) parametros.get("itemSelecionado");
 
         image = (ImageView) findViewById(R.id.abei_image);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.abei_collapsingToolBar);
@@ -68,10 +71,34 @@ public class BlogExibirItemActivity extends AppCompatActivity implements AppBarL
 
             Picasso.with(this)
                     .load(itemSelecionado.getImage())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
                     .placeholder(R.mipmap.ic_paizinho)
                     .error(R.mipmap.ic_paizinho)
                     .resize(600, 0)
-                    .into(image);
+                    .into(image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            //Try again online if cache failed
+                            Picasso.with(getApplicationContext())
+                                    .load(itemSelecionado.getImage())
+                                    .error(R.mipmap.ic_paizinho)
+                                    .into(image, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                        }
+
+                                        @Override
+                                        public void onError() {
+                                            Log.v("Picasso","Could not fetch image");
+                                        }
+                                    });
+                        }
+                    });
         }
 
         appBarLayout.addOnOffsetChangedListener(this);
