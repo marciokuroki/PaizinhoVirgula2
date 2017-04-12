@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,8 +46,9 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
 
     private final Context context;
     private ProgressDialog dialog;
-    //private PaizinhoDataBaseHelper baseHelper;
+    private PaizinhoDataBaseHelper baseHelper;
     //private List<Item> list;
+    private List<Item> listBanco;
 
     public BlogRSSReader(Context context) {
         this.context = context;
@@ -56,19 +58,18 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
     protected void onPreExecute() {
         super.onPreExecute();
         dialog = ProgressDialog.show(context, "Carregando...", "Aguarde...", true);
-        /*try{
+        try{
             listBanco = getHelper().getItemDao().queryForAll();
         }catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override
     protected void onPostExecute(List<Item> items) {
         super.onPostExecute(items);
         feedItems = items;
-        dialog.dismiss();
-        /*if (items != null) {
+        if (items != null) {
             for (Item item: items) {
                 Item aux = item;
                 if (!listBanco.contains(aux)) {
@@ -80,15 +81,15 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
                     }
                 }
             }
-        }*/
+        }
+        dialog.dismiss();
     }
 
-    /*private PaizinhoDataBaseHelper getHelper() {
+    private PaizinhoDataBaseHelper getHelper() {
         if (baseHelper == null)
             baseHelper = new PaizinhoDataBaseHelper(context);
-
         return baseHelper;
-    }*/
+    }
 
     /***
      * pos 0 - URL
@@ -111,7 +112,7 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
 
     private Document getdata() {
         try {
-            Log.i(TAG, address);
+            //Log.i(TAG, address);
             url = new URL(address);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");

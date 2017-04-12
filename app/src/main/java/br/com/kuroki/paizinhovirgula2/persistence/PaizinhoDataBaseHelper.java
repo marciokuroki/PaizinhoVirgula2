@@ -13,6 +13,7 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 
 import br.com.kuroki.paizinhovirgula2.entity.Item;
+import br.com.kuroki.paizinhovirgula2.persistence.dao.ItemDaoImpl;
 
 /**
  * Created by marciokuroki on 26/01/17.
@@ -26,7 +27,7 @@ public class PaizinhoDataBaseHelper extends OrmLiteSqliteOpenHelper {
     private final String LOG_TAG = "PAIZINHO_DATABASE";
 
     //DAOs
-    private Dao<Item, Long> itemDao = null;
+    private ItemDaoImpl itemDao = null;
     //private Dao<Categoria, Integer> categoriaDao = null;
 
     private RuntimeExceptionDao<Item, Long> itemRuntimeDao = null;
@@ -61,9 +62,10 @@ public class PaizinhoDataBaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public Dao<Item, Long> getItemDao() throws SQLException {
+    public ItemDaoImpl getItemDao() throws SQLException {
         if (itemDao == null)
-            itemDao = getDao(Item.class);
+            //itemDao = getDao(Item.class);
+            itemDao = new ItemDaoImpl(connectionSource);
         return itemDao;
     }
 

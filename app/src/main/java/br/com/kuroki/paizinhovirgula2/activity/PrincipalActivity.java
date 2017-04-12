@@ -13,6 +13,9 @@ import android.view.MenuItem;
 
 import com.onesignal.OneSignal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.kuroki.paizinhovirgula2.R;
 import br.com.kuroki.paizinhovirgula2.fragment.BlogFragment;
 import br.com.kuroki.paizinhovirgula2.fragment.EventoFragment;
@@ -31,12 +34,28 @@ public class PrincipalActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
+    private List<Fragment> fragmentList = new ArrayList<>();
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         OneSignal.startInit(this).init();
 
         setContentView(R.layout.activity_principal);
+
+        if (fragmentList.size() != 5) {
+            fragmentList.clear();
+            fragmentList.add(new BlogFragment()); //0
+            fragmentList.add(new PodcastFragment()); //1
+            fragmentList.add(new SinucaFragment()); //2
+            fragmentList.add(new VideoFragment()); //3
+            fragmentList.add(new EventoFragment()); //4
+        }
 
         fragmentManager = this.getSupportFragmentManager();
 
@@ -50,19 +69,24 @@ public class PrincipalActivity extends AppCompatActivity {
                 Log.i(PRINCIPAL_TAG, "Cliquei no item: " + item.getTitle());
                 switch (item.getItemId()) {
                     case R.id.fragment_blog:
-                        currentFragment = new BlogFragment();
+                        //currentFragment = new BlogFragment();
+                        currentFragment = fragmentList.get(0);
                         break;
                     case R.id.fragment_podcast:
-                        currentFragment = new PodcastFragment();
+                        //currentFragment = new PodcastFragment();
+                        currentFragment = fragmentList.get(1);
                         break;
                     case R.id.fragment_video:
-                        currentFragment = new VideoFragment();
+                        //currentFragment = new VideoFragment();
+                        currentFragment = fragmentList.get(3);
                         break;
                     case R.id.fragment_evento:
-                        currentFragment = new EventoFragment();
+                        //currentFragment = new EventoFragment();
+                        currentFragment = fragmentList.get(4);
                         break;
                     case R.id.fragment_sinuca:
-                        currentFragment = new SinucaFragment();
+                        //currentFragment = new SinucaFragment();
+                        currentFragment = fragmentList.get(2);
                         break;
                 }
                 transaction.replace(R.id.main_container, currentFragment).commit();
@@ -79,15 +103,11 @@ public class PrincipalActivity extends AppCompatActivity {
         bottomNavigationView.getMenu().getItem(3).setEnabled(false);
         bottomNavigationView.getMenu().getItem(4).setEnabled(true);
 
-        if (currentFragment == null) {
-            //currentFragment = new PodcastFragment();
-            currentFragment = new BlogFragment();
-            transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.main_container, currentFragment).commit();
-        }else {
-            transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.main_container, currentFragment).commit();
-        }
+        if (currentFragment == null)
+            currentFragment = fragmentList.get(0);
+
+        transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.main_container, currentFragment).commit();
     }
 
 }
