@@ -1,6 +1,5 @@
 package br.com.kuroki.paizinhovirgula2.adapter;
 
-import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -184,7 +183,8 @@ public class BlogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .networkPolicy(NetworkPolicy.OFFLINE)
                     .placeholder(R.mipmap.ic_paizinho)
                     .error(R.mipmap.ic_paizinho)
-                    .resize(600, 0)
+                    .resize(400, 210)
+                    .centerCrop()
                     .into(imagem, new Callback() {
                         @Override
                         public void onSuccess() {

@@ -4,10 +4,15 @@
     android:layout_height="match_parent"
     tools:context="br.com.kuroki.paizinhovirgula2.fragment.PodcastFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_podcast"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycle_podcast"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycle_podcast"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
         android:id="@+id/empty_view_podcast"

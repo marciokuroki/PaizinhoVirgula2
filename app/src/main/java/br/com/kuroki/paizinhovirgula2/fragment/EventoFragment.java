@@ -3,6 +3,7 @@ package br.com.kuroki.paizinhovirgula2.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import br.com.kuroki.paizinhovirgula2.R;
+import br.com.kuroki.paizinhovirgula2.util.DetectConnection;
 
 public class EventoFragment extends Fragment {
 
@@ -33,13 +36,15 @@ public class EventoFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar_evento);
         progressBar.setMax(100);
 
+        if (!DetectConnection.checkInternetConnection(getActivity())) {
+            Snackbar.make(view, "Sem conexão com a internet. Tente novamente mais tarde.", Snackbar.LENGTH_LONG).show();
+        }else {
+            webView = (WebView) view.findViewById(R.id.web_view_evento);
 
-        webView = (WebView) view.findViewById(R.id.web_view_evento);
-
-        webView.setWebViewClient(new MyWebViewClient());
-        progressBar.setVisibility(View.GONE);
-        webView.loadUrl(url);
-
+            webView.setWebViewClient(new MyWebViewClient());
+            progressBar.setVisibility(View.GONE);
+            webView.loadUrl(url);
+        }
         // Inflate the layout for this fragment
         return view;
     }

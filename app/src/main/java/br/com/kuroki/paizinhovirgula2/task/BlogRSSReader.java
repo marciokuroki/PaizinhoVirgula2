@@ -57,7 +57,7 @@ public class BlogRSSReader extends AsyncTask<String, Void, List<Item>> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog = ProgressDialog.show(context, "Carregando...", "Aguarde...", true);
+        dialog = ProgressDialog.show(context, "Carregando", "Aguarde...", true);
         try{
             listBanco = getHelper().getItemDao().queryForAll();
         }catch (SQLException e) {

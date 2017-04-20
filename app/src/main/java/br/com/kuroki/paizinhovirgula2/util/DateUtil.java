@@ -77,7 +77,7 @@ public class DateUtil {
         }else {
             long segundos = (durationInMilis / 1000) % 60;
             long minutos = (durationInMilis / 60000) % 60;
-            return String.format("%02d:%02d", minutos, segundos);
+            return String.format("%02d:%02d:%02d", 0l, minutos, segundos);
         }
     }
 }

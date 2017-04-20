@@ -1,13 +1,17 @@
 package br.com.kuroki.paizinhovirgula2.task;
 
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,6 +21,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import br.com.kuroki.paizinhovirgula2.R;
+import br.com.kuroki.paizinhovirgula2.activity.PrincipalActivity;
+import br.com.kuroki.paizinhovirgula2.activity.SplashActivity;
 import br.com.kuroki.paizinhovirgula2.entity.Item;
 import br.com.kuroki.paizinhovirgula2.persistence.PaizinhoDataBaseHelper;
 import br.com.kuroki.paizinhovirgula2.task.interfaces.ITarefaDownload;
@@ -78,6 +84,7 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
 
         notificationBuilder = new NotificationCompat.Builder(context);
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         notificationBuilder.setSmallIcon(R.drawable.ic_action_paizinho);
         notificationBuilder.setContentTitle("Preparando o Download");
         notificationBuilder.setContentText("Iniciando o Download...");
@@ -192,10 +199,14 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
         mWakeLock.release();
         iTarefaDownload.depoisDownload(result);
         if (result != null) {
+            Intent notificationIntent = new Intent(context, SplashActivity.class);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
             notificationBuilder.setContentText("Download do " + arquivo + " concluído!");
             notificationBuilder.setProgress(0, 0, false);
+            notificationBuilder.setContentIntent(intent);
+            notificationBuilder.setAutoCancel(true);
             notificationManager.notify(notify_id, notificationBuilder.build());
         }
-
     }
 }

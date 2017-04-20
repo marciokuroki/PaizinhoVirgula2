@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PersistableBundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
@@ -35,6 +36,7 @@ import br.com.kuroki.paizinhovirgula2.entity.Item;
 import br.com.kuroki.paizinhovirgula2.persistence.PaizinhoDataBaseHelper;
 import br.com.kuroki.paizinhovirgula2.task.DownloadTask;
 import br.com.kuroki.paizinhovirgula2.task.interfaces.ITarefaDownload;
+import br.com.kuroki.paizinhovirgula2.util.DateUtil;
 import br.com.kuroki.paizinhovirgula2.util.UlTagHandler;
 
 public class PodcastExibirItemActivity extends AppCompatActivity implements ITarefaDownload, MediaPlayer.OnPreparedListener, MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnErrorListener {
@@ -102,10 +104,11 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                 }
             }
 
-            progressBar.setProgress(itemSelecionado.getResumePosition());
+            //progressBar.setProgress(itemSelecionado.getResumePosition());
             //current.setText(DateUtil.converterLongToString(itemSelecionado.getResumePosition().longValue()));
-            duration = itemSelecionado.getDuration();
-            currentTime = itemSelecionado.getResumePosition().longValue();
+            duration = (itemSelecionado.getDuration() != null) ? itemSelecionado.getDuration() : 0;
+            currentTime = (itemSelecionado.getResumePosition() != null) ? itemSelecionado.getResumePosition().longValue() : 0;
+            progressBar.setProgress(((int) currentTime));
             updateTimeMusic(duration, currentTime, current);
 
             int icone = R.mipmap.ic_trico;
@@ -382,13 +385,14 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
                 int minute, second, hora;
 
                 // DURATION
-                aux = duration / 1000;
+                /*aux = duration / 1000;
                 hora = (int) ((aux / 360) / 24);
                 minute = (int) ((aux / 60) % 60);
                 second = (int) (aux % 60);
                 String sDuration = hora < 10 ? "0"+hora : hora+"";
                 sDuration += ":"+(minute < 10 ? "0"+minute : minute);
-                sDuration += ":"+(second < 10 ? "0"+second : second);
+                sDuration += ":"+(second < 10 ? "0"+second : second);*/
+                String sDuration = DateUtil.converterLongToString(duration);
 
                 // CURRENTTIME
                 aux = currentTime / 1000;
@@ -442,7 +446,8 @@ public class PodcastExibirItemActivity extends AppCompatActivity implements ITar
         try {
             File arquivoAudio = new File(audio);
             if (arquivoAudio.exists()) {
-                Toast.makeText(this, "Download do " + arquivoAudio.getName() +" completo.", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Download do " + arquivoAudio.getName() +" completo.", Toast.LENGTH_LONG).show();
+                Snackbar.make(getCurrentFocus(), "Download do " + arquivoAudio.getName() +" completo.", Snackbar.LENGTH_LONG).show();
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -58,7 +60,7 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        progressDialog = ProgressDialog.show(context, "", "Carregando", true, true);
+        progressDialog = ProgressDialog.show(context, "Carregando", "Aguarde...", true);
         try{
             //TODO Ajustar para trazer só de um tipo
             //listBanco = getHelper().getItemDao().queryForAll();
@@ -191,12 +193,19 @@ public class PodcastRSSReader extends AsyncTask<String, Void, List<Item>> {
                             }*/
                         }else if (cureent.getNodeName().equalsIgnoreCase("description")) {
                             item.setDescription(cureent.getTextContent());
+                            String aux = cureent.getChildNodes().item(0).getTextContent();
+                            Pattern p = Pattern.compile("src=\"(\\S+)\"");
+                            Matcher m = p.matcher(aux);
+                            if (m.find()) {
+                                String result = m.group(1);
+                                item.setImage(result);
+                            }
                         }else if (cureent.getNodeName().equalsIgnoreCase("content:encoded")) {
                             item.setContent(cureent.getTextContent());
-                        }else if (cureent.getNodeName().equalsIgnoreCase("rawvoice:poster")) {
+                        }/*else if (cureent.getNodeName().equalsIgnoreCase("rawvoice:poster")) {
                             String url=cureent.getAttributes().item(0).getTextContent();
                             item.setImage(url);
-                        }else if (cureent.getNodeName().equalsIgnoreCase("itunes:duration")) {
+                        }*/else if (cureent.getNodeName().equalsIgnoreCase("itunes:duration")) {
                             String duration = cureent.getTextContent();
                             item.setDuration(DateUtil.converterStringToLong(duration));
                         }

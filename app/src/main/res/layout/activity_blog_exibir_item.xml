@@ -12,7 +12,8 @@
         android:id="@+id/abei_appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="@style/AppTheme"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -24,7 +25,8 @@
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
-            app:titleTextColor="@color/colorAccent">
+            app:titleTextColor="@color/colorAccent"
+            android:elevation="4dp">
 
             <ImageView
                 android:id="@+id/abei_image"
@@ -40,7 +42,8 @@
                 android:id="@+id/abei_toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                app:layout_collapseMode="pin">
+                app:layout_collapseMode="pin"
+                android:elevation="8dp">
 
                 <include
                     android:id="@+id/toolbar_header_view"
@@ -68,7 +71,8 @@
             android:layout_gravity="left"
             android:text="Blabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal balBlabla bal bal"
             android:textColorLink="@color/red"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:padding="8dp"/>
 
     </android.support.v4.widget.NestedScrollView>
 

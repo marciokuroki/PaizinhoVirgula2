@@ -46,4 +46,29 @@ public class ItemDaoImpl extends BaseDaoImpl<Item, Long> implements ItemDao {
 
         return this.query(preparedQuery);
     }
+
+    @Override
+    public List<Item> pesquisarNItens(long quantidade, long idUltPos, boolean isNext, int tipoPodcast) throws SQLException {
+        Item itemUltPos;
+
+        QueryBuilder<Item, Long> queryBuilder = this.queryBuilder();
+        Where<Item, Long> where = queryBuilder.where();
+        where.eq(Item.NMCP_TIPO, tipoPodcast);
+
+        if (this.idExists(idUltPos)) {
+            where.and();
+            itemUltPos = this.queryForId(idUltPos);
+            if (isNext)
+                where.lt(Item.NMCP_PUBDATE, itemUltPos.getPubDate());
+            else
+                where.gt(Item.NMCP_PUBDATE, itemUltPos.getPubDate());
+        }
+        //queryBuilder.orderBy(Item.NMCP_ID, false);
+        queryBuilder.orderBy(Item.NMCP_PUBDATE, false);
+        queryBuilder.limit(quantidade);
+
+        PreparedQuery<Item> preparedQuery = queryBuilder.prepare();
+
+        return this.query(preparedQuery);
+    }
 }
